@@ -13,7 +13,7 @@ public interface ServiceConnector<T> {
 	default T executeCall(RestTemplate restTemplate, String serviceName, String apiPath, Map<String, String> queryParams, Class<T> responseClass) {
 
 		System.out.println("API GATEWAY : execute ");
-		return restTemplate.getForObject("http://" + serviceName.toUpperCase() + apiPath + formatQueryParams(queryParams), responseClass);
+		return restTemplate.getForObject("http://" + serviceName + apiPath + formatQueryParams(queryParams), responseClass);
 	}
 
 	static String formatQueryParams(Map<String, String> params) {

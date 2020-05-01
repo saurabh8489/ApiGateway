@@ -22,7 +22,8 @@ public class UserServiceConnectorImpl implements ServiceConnector<String> {
 		Status status;
 		String response;
 		try {
-			response = ServiceConnector.super.executeCall(restTemplate, PathResolver.USER_SERVICE, PathResolver.USER_SERVICE_PATH, queryParams, String.class);
+			response = ServiceConnector.super.executeCall(new RestTemplate(), "localhost:8088", PathResolver.USER_SERVICE_PATH, queryParams, String.class);
+			
 			System.out.println("API GATEWAY : execute " + response);
 			status = Status.OK;
 			

@@ -23,7 +23,7 @@ public class EmployeeServiceConnectorImpl implements ServiceConnector<String> {
 		Status status;
 		String response;
 		try {
-			response = ServiceConnector.super.executeCall(restTemplate, PathResolver.EMPLOYEE_SERVICE, 	PathResolver.EMPLOYEE_SERVICE_PATH, queryParams, String.class);
+			response = ServiceConnector.super.executeCall(new RestTemplate(), "localhost:8089", 	PathResolver.EMPLOYEE_SERVICE_PATH, queryParams, String.class);
 			System.out.println("API GATEWAY : execute "  + response);
 			status = Status.OK;
 			

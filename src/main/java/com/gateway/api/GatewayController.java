@@ -2,6 +2,7 @@ package com.gateway.api;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class GatewayController {
   	@Autowired
   	private PathResolver pathResolver;
   		
-	@RequestMapping(value = "/user/details", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/details", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public Response getUserDetails(@RequestParam(name = "userName") String userName,
 			@RequestParam(name = "userDob") String userDob) throws Exception {
 		
@@ -32,7 +33,7 @@ public class GatewayController {
 		return pathResolver.resolvePath(PathResolver.USER_SERVICE).execute(queryMap);
 	}
 
-	@RequestMapping(value = "/employee/details", method = RequestMethod.GET)
+	@RequestMapping(value = "/employee/details", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public Response getEmployeeDetails(@RequestParam(name = "empEmail") String empEmail) throws Exception {
 		Map<String, String> queryMap = new HashMap<String, String>();
 		queryMap.put("empEmail", empEmail);
