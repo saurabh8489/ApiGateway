@@ -14,17 +14,16 @@ import com.gateway.service.ServiceConnector;
 
 @Component("UserService")
 public class UserServiceConnectorImpl implements ServiceConnector<String> {
-
 	@Autowired
-	private RestTemplate restTemplate;
-	
+    private RestTemplate restTemplate;
+
 	@Override
 	public Response execute(Map<String, String> queryParams) {
 		Status status;
 		String response;
 		try {
-			response = ServiceConnector.super.executeCall(restTemplate, PathResolver.USER_SERVICE,PathResolver.USER_SERVICE_PATH, 
-					queryParams, String.class);
+			response = ServiceConnector.super.executeCall(restTemplate, PathResolver.USER_SERVICE, PathResolver.USER_SERVICE_PATH, queryParams, String.class);
+			System.out.println("API GATEWAY : execute " + response);
 			status = Status.OK;
 			
 		} catch (Exception e) {

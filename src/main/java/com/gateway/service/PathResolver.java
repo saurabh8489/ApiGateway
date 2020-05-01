@@ -3,10 +3,10 @@ package com.gateway.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.collections.MapUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import com.gateway.service.implementation.EmployeeServiceConnectorImpl;
-import com.gateway.service.implementation.UserServiceConnectorImpl;
 
 @SuppressWarnings("rawtypes")
 @Service
@@ -17,15 +17,29 @@ public class PathResolver {
 	public static final String EMPLOYEE_SERVICE_PATH = "/employee/details";
 	public static final String EMPLOYEE_SERVICE = "Employee-Details-Application";
 	public static final String USER_SERVICE = "UserServcice";
-	private final Map<String, ServiceConnector> serviceConnectorMap;
+	private Map<String, ServiceConnector> serviceConnectorMap;
 	
-	public PathResolver() {
+	@Autowired
+	@Qualifier("EmployeeService")
+	private ServiceConnector<String> employeeConnector;
+	@Autowired
+	@Qualifier("UserService")
+	private ServiceConnector<String> userConnector;
+	
+	
+	public void initilize() {
+		
 		this.serviceConnectorMap = new HashMap<String, ServiceConnector>();
-		this.serviceConnectorMap.put(EMPLOYEE_SERVICE, new EmployeeServiceConnectorImpl());
-		this.serviceConnectorMap.put(USER_SERVICE, new UserServiceConnectorImpl());
+		this.serviceConnectorMap.put(EMPLOYEE_SERVICE, employeeConnector);
+		this.serviceConnectorMap.put(USER_SERVICE, userConnector);
 	}
 	
 	public ServiceConnector resolvePath(final String path) {
+		if(MapUtils.isEmpty(this.serviceConnectorMap)) {
+			this.initilize();
+		}
+			
+		System.out.println("API GATEWAY : resolvePath " + path);
 		return this.serviceConnectorMap.get(path);
 	}
 }

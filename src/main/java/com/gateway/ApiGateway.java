@@ -15,10 +15,10 @@ public class ApiGateway {
 		SpringApplication.run(ApiGateway.class, args);
 	}
 	
-	
-	@LoadBalanced
 	@Bean
+	@LoadBalanced
 	public RestTemplate getRestTemplate() {
 		return new RestTemplate();
 	}
+	
 }

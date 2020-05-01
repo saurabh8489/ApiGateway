@@ -2,7 +2,6 @@ package com.gateway.api;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,20 +22,22 @@ public class GatewayController {
   		
 	@RequestMapping(value = "/user/details", method = RequestMethod.GET)
 	public Response getUserDetails(@RequestParam(name = "userName") String userName,
-			@RequestParam(name = "userDob") String userDob, ServletContext context) throws Exception {
+			@RequestParam(name = "userDob") String userDob) throws Exception {
+		
+		System.out.println("API GATEWAY : getUserDetails ");
 		Map<String, String> queryMap = new HashMap<String, String>();
 		queryMap.put("userDob", userDob);
 		queryMap.put("userName", userName);
 			
-		return pathResolver.resolvePath(context.getContextPath()).execute(queryMap);
+		return pathResolver.resolvePath(PathResolver.USER_SERVICE).execute(queryMap);
 	}
 
 	@RequestMapping(value = "/employee/details", method = RequestMethod.GET)
-	public Response getEmployeeDetails(@RequestParam(name = "empEmail") String empEmail, ServletContext context) throws Exception {
+	public Response getEmployeeDetails(@RequestParam(name = "empEmail") String empEmail) throws Exception {
 		Map<String, String> queryMap = new HashMap<String, String>();
 		queryMap.put("empEmail", empEmail);
-			
-		return pathResolver.resolvePath(context.getContextPath()).execute(queryMap);
+		System.out.println("API GATEWAY : getEmployeeDetails ");
+		return pathResolver.resolvePath(PathResolver.EMPLOYEE_SERVICE).execute(queryMap);
 	}
 	
 }
