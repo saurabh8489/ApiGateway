@@ -3,7 +3,7 @@ package com.gateway.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.collections.MapUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class PathResolver {
 	public static final String USER_SERVICE_PATH = "/user/details";
 	public static final String EMPLOYEE_SERVICE_PATH = "/employee/details";
 	public static final String EMPLOYEE_SERVICE = "Employee-Details-Application";
-	public static final String USER_SERVICE = "UserServcice";
+	public static final String USER_SERVICE = "User-Details-Application";
 	private Map<String, ServiceConnector> serviceConnectorMap;
 	
 	@Autowired
